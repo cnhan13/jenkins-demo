@@ -56,6 +56,19 @@ Execute:
 ```shell
 ./gradlew docker
 ./gradlew dockerRun
+#or
+./gradlew docker dockerrun
+```
+
+To check gradle version:
+```shell
+./gradlew --version
+```
+
+To update Gradle version, you can check the latest Gradle version [here](https://gradle.org/releases/)
+then either change manually in `gradle/wrapper/gradle-wrapper.properties > distributionUrl` or run
+```shell
+./gradlew wrapper --gradle-version 7.2 # where 7.2 is the new version
 ```
 
 ### Create (only 1) seed job then manually copy its configuration 
