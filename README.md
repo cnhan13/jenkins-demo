@@ -50,14 +50,7 @@ dockerRun {
 `clean` means when the container shutdowns, it'll auto remove itself
 `daemonize` tells docker to output directly to the console
 
-## Build project
-If you build in windows git bash and see gradlew printing lots of control characters then set env variable
-```shell
-TERM=cygwin
-```
-or you can put the above script in `File > Settings... > Tools > Terminal > Project Settings > Environment Variables`
-
-## How to run
+## Initial Setup
 
 Execute:
 ```shell
@@ -65,7 +58,32 @@ Execute:
 ./gradlew dockerRun
 ```
 
+### Create (only 1) seed job then manually copy its configuration 
+
+Open jenkins at `localhost:8080`, select `New Item`, enter `seed` as item name, select `Freestyle project`.
+In **Source Code Management**, select **Git**, paste in the repository URL, change branch specifier to `*/main`
+if need to.
+
+In **Build**, select **Add build step**, then **Process Job DSLs**, select **Look on Filesystem**, in
+**DSL Scripts** put `createJobs.groovy`, click **Save**.
+
+While docker is running, grab the job config from the inside of the docker:
+```shell
+docker cp [CONTAINER ID, first 3 or 4 letter]:/var/jenkins_home/jobs/seed/config.xml seedJob.xml
+```
+
 ## Issues & solutions
+
+### Control characters in git bash console
+
+If you build in windows git bash and see gradlew printing lots of control characters then set env variable
+
+```shell
+TERM=cygwin
+```
+
+or you can put the above script in `File > Settings... > Tools > Terminal > Project Settings > Environment Variables`
+
 ### No signature of method ... dockerRun()
 
 ```shell

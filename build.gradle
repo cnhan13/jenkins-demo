@@ -10,7 +10,7 @@ String imageName = "${project.name}:${project.version}"
 
 docker {
     name imageName
-    files "plugins.txt"
+    files "plugins.txt", "seedJob.xml"
 }
 
 dockerRun {
